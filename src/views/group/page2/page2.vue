@@ -3,7 +3,7 @@
 </style>
 
 <template>
-    <div id="page2">
+    <div id="app">
         <h1>角色管理</h1>
         <div class="title">
             <Input v-model="value1" type="text">
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    name: 'page2',
+    name:'page2',
     data(){
         return{
             value1:"",
@@ -62,7 +62,7 @@ export default {
                                         size: 'small'
                                     },
                                     style: {
-                                        marginRight: '5px'
+                                        marginRight: '20px'
                                     },
                                     on: {
                                         click: () => {
@@ -75,6 +75,9 @@ export default {
                                         type: 'error',
                                         size: 'small'
                                     },
+                                    style: {
+                                        marginRight: '20px'
+                                    },
                                     on: {
                                         click: () => {
                                             this.remove(params.index)
@@ -86,6 +89,9 @@ export default {
                                         type: 'success',
                                         size: 'small'
                                     },
+                                    style: {
+                                        marginRight: '20px'
+                                    },
                                     on: {
                                         click: () => {
                                            console.log(this)
@@ -96,6 +102,9 @@ export default {
                                     props: {
                                         type: 'primary',
                                         size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '20px'
                                     },
                                     on: {
                                         click: () => {
