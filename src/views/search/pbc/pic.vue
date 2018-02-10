@@ -78,7 +78,7 @@ export default {
             data6: [
                 {
                     id: '1',
-                    name: "寺庙720"
+                    name: "寺庙720000"
                 },
                  {
                     id: '2',
