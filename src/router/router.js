@@ -7,7 +7,7 @@ export const loginRouter = {
     path: '/login',
     name: 'login',
     meta: {
-        title: 'Login - 登录'
+        title: 'login - 登录'
     },
     component: resolve => { require(['@/views/login.vue'], resolve); }
 };
@@ -51,20 +51,7 @@ export const otherRouter = {
 
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 var token=Cookies.get("token");
-// var app1="[{id:1,path:'/group',icon:'ios-folder',name:'系统功能',title:'系统功能',component:Main,children:[{id:2,path:'/group',icon:'ios-folder',name:'权限管理',title:'权限管理',component:resolve => { require(['@/views/group/page1/page1'],resolve);}},{id:3,path:'/group',icon:'ios-folder',name:'角色管理',title:'角色管理',component:resolve => { require(['@/views/group/page2/page2'],resolve);}}]}]";
-api.get(`banaworld/staff/userPerm?token=${token}`)
-    .then(function (res) {
-        console.log(res);
-        if(res.data.code=="100000"){
-            var app2=res.data.data;
-        }else{
-            alert(res.data.message);
-        }
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-export const appRouter = [
+var app1= [
     {
         id:1,
         path: '/group',
@@ -107,7 +94,30 @@ export const appRouter = [
         name: 'page',
         component: Main,
         children: [
-            { path: 'index', title: 'Page', name: 'search_index', component: resolve => { require(['@/views/search/search.vue'], resolve); } }
+            { 
+                id:15,
+                path: 'index',
+                icon:"ios-search",
+                title: '搜索管理', 
+                name: 'search_index', 
+                component: resolve => { require(['@/views/search/search.vue'], resolve); } 
+            },
+            {
+                id:16,
+                path: 'qushi',
+                icon: 'network',
+                name: 'qushi',
+                title: '搜索统计',
+                component: resolve => { require(['@/views/search/qushi/qushi.vue'], resolve); }
+            },
+            {
+                id:17,
+                path: 'pbc',
+                icon: 'network',
+                name: 'pbc',
+                title: '搜索屏蔽词',
+                component: resolve => { require(['@/views/search/pbc/pic.vue'], resolve); }
+            }
         ]
     },
     {
@@ -210,6 +220,38 @@ export const appRouter = [
         ]
     }
 ];
+export const appRouter =app1;
+// api.get(`banaworld/staff/userPerm?token=${token}`)
+//     .then(function (res) {
+//         console.dir(res);
+//         if(res.data.code=="100000"){
+//             var app2=res.data.data;
+//             console.dir(app2);
+//             console.dir(app1);
+//             var id="";
+//             var path="";
+//             var icon="";
+//             var name="";
+//             var title="";
+//             var children=[]; 
+//             for(var i=0;i<app2.length;i++){
+//                 for(var j=0;j<app1.length;j++){
+//                     console.log(i,j)
+//                     if(app1[j].id==app2[i].permId ){
+//                         console.info(JSON.stringify(app1[j]))
+//                         appRouter.push(app1[j])
+//                     }
+//                 }
+                
+//             }
+            
+//         }else{
+//             alert(res.data.message);
+//         }
+//     })
+//     .catch(function (error) {
+//         console.dir(error);
+//     });
 
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [

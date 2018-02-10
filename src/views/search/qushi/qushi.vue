@@ -1,43 +1,15 @@
-<style lang="less" scoped>
-    @import "./search.less";
-</style>
 <template>
     <div id="app">
-        <h1>搜索管理</h1> 
-        <div class="add_hot">
-            <h3>添加搜索词</h3>
-            <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
-                <FormItem prop="user">
-                    <Input type="text" v-model="formInline.user" placeholder="请输入需要添加的热词">
-                        <Icon type="ios-person-outline" slot="prepend"></Icon>
-                    </Input>
-                </FormItem>
-                <FormItem>
-                    <Button type="primary" @click="handleSubmit('formInline')">添加</Button>
-                </FormItem>
-            </Form>
-        </div>
-        <div class="hot">
-            <h3>搜索关键词列表</h3>
-            <Table border :columns="columns7" :data="data6"></Table>
-        </div>
+        <h1>搜索统计</h1>
+        <Table border :columns="columns7" :data="data6"></Table>
     </div>
 </template>
-
 <script>
 export default {
-    name: 'search_index',
-    data (){
-        return{
-            formInline: {
-                user: '',
-            },
-            ruleInline: {
-                user: [
-                    { required: true, message: '请输入关键词', trigger: 'blur' }
-                ],
-            },
-            columns7: [
+   name:"qushi",
+   data(){
+       return{
+           columns7: [
                 {
                     title: '序号',
                     key: 'id',
@@ -52,9 +24,13 @@ export default {
                      key: 'name'
                 },
                 {
+                    title: '7天内搜索量',
+                     key: 'number'
+                },
+                {
                     title: '操作',
                     key: 'action',
-                    width: 150,
+                    width: 300,
                     align: 'center',
                     render: (h, params) => {
                         return h('div', [
@@ -77,12 +53,26 @@ export default {
                                     type: 'error',
                                     size: 'small'
                                 },
+                                style: {
+                                    marginRight: '5px'
+                                },
                                 on: {
                                     click: () => {
                                         this.remove(params.index)
                                     }
                                 }
-                            }, '删除')
+                            }, '设为屏蔽词'),
+                            h('Button', {
+                                props: {
+                                    type: 'info',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.remove(params.index)
+                                    }
+                                }
+                            }, '设为关键词')
                         ]);
                     }
                 }
@@ -90,46 +80,41 @@ export default {
             data6: [
                 {
                     id: '1',
-                    name: "寺庙720"
+                    name: "寺庙720",
+                    number:100
                 },
                  {
                     id: '2',
-                    name: "佛法传播之路"
+                    name: "佛法传播之路",
+                    number:80
                 },
                 {
                     id: '3',
-                    name: "邹城新闻"
+                    name: "邹城新闻",
+                    number:70
                 },
                 {
                     id: '4',
-                    name: "烧香"
+                    name: "烧香",
+                    number:60
                 }, {
                     id: '5',
-                    name: "拜佛"
+                    name: "拜佛",
+                    number:50
                 }
             ]
-        }
-    },
-    methods: {
+       }
+   },
+   methods: {
         show (index) {
             this.$Modal.info({
                 title: 'User Info',
-                content: `序号：${this.data6[index].id}<br>内容：${this.data6[index].name}<br>`
+                content: `序号：${this.data6[index].id}<br>内容：${this.data6[index].name}<br>7天内搜索量:${this.data6[index].number}`
             })
         },
         remove (index) {
             this.data6.splice(index, 1);
         },
-        handleSubmit(name) {
-            this.$refs[name].validate((valid) => {
-                if (valid) {
-                    this.$Message.success('Success!');
-                } else {
-                    this.$Message.error('Fail!');
-                }
-            })
-        }
-
     }
-};
+}
 </script>

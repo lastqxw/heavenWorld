@@ -1,14 +1,14 @@
 <style lang="less" scoped>
-    @import "./search.less";
+    @import "../search.less";
 </style>
 <template>
     <div id="app">
         <h1>搜索管理</h1> 
         <div class="add_hot">
-            <h3>添加搜索词</h3>
+            <h3>添加搜索屏蔽词</h3>
             <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
                 <FormItem prop="user">
-                    <Input type="text" v-model="formInline.user" placeholder="请输入需要添加的热词">
+                    <Input type="text" v-model="formInline.user" placeholder="请输入需要添加的屏蔽词" :style="{ width: width+'px', marginLeft: marginLeft + 'px' }">
                         <Icon type="ios-person-outline" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
@@ -29,6 +29,8 @@ export default {
     name: 'search_index',
     data (){
         return{
+            width:400,
+            marginLeft:30,
             formInline: {
                 user: '',
             },
@@ -58,20 +60,6 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         return h('div', [
-                            h('Button', {
-                                props: {
-                                    type: 'primary',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.show(params.index)
-                                    }
-                                }
-                            }, '查看趋势'),
                             h('Button', {
                                 props: {
                                     type: 'error',
@@ -111,12 +99,6 @@ export default {
         }
     },
     methods: {
-        show (index) {
-            this.$Modal.info({
-                title: 'User Info',
-                content: `序号：${this.data6[index].id}<br>内容：${this.data6[index].name}<br>`
-            })
-        },
         remove (index) {
             this.data6.splice(index, 1);
         },
